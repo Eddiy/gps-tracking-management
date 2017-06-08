@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include gps_tracking_management *.css
+recursive-include gps_tracking_management *.csv
+recursive-include gps_tracking_management *.html
+recursive-include gps_tracking_management *.ico
+recursive-include gps_tracking_management *.js
+recursive-include gps_tracking_management *.json
+recursive-include gps_tracking_management *.md
+recursive-include gps_tracking_management *.png
+recursive-include gps_tracking_management *.py
+recursive-include gps_tracking_management *.svg
+recursive-include gps_tracking_management *.txt
+recursive-exclude gps_tracking_management *.pyc
