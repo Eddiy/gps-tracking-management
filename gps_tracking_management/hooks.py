@@ -29,7 +29,7 @@ app_version = "0.0.1"
 # ------------
 
 # before_install = "library_management.install.before_install"
-# after_install = "library_management.install.after_install"
+after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_default_warehouses"
 
 # Desk Notifications
 # ------------------

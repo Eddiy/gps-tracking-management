@@ -1,58 +1,79 @@
 [
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:30:46.729777",
-  "name": "Contact Customer",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:30:46.729777", 
+  "name": "Contact Customer", 
   "workflow_action_name": "Contact Customer"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:31:23.393868",
-  "name": "Assign Technician",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:31:23.393868", 
+  "name": "Assign Technician", 
   "workflow_action_name": "Assign Technician"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:31:40.052110",
-  "name": "Complete Installation",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:31:40.052110", 
+  "name": "Complete Installation", 
   "workflow_action_name": "Complete Installation"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:31:54.751024",
-  "name": "Verify Installation",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:31:54.751024", 
+  "name": "Verify Installation", 
   "workflow_action_name": "Verify Installation"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:32:11.273754",
-  "name": "Issue Certificate",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:32:11.273754", 
+  "name": "Issue Certificate", 
   "workflow_action_name": "Issue Certificate"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-06 13:32:24.793912",
-  "name": "Close Installation",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-06 13:32:24.793912", 
+  "name": "Close Installation", 
   "workflow_action_name": "Close Installation"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-11 11:18:16.680824",
-  "name": "Complete Removal",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-11 11:18:16.680824", 
+  "name": "Complete Removal", 
   "workflow_action_name": "Complete Removal"
- },
+ }, 
  {
-  "docstatus": 0,
-  "doctype": "Workflow Action",
-  "modified": "2017-04-11 11:19:39.406346",
-  "name": "Close Removal",
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-04-11 11:19:39.406346", 
+  "name": "Close Removal", 
   "workflow_action_name": "Close Removal"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-07-20 14:29:13.379258", 
+  "name": "Approve", 
+  "workflow_action_name": "Approve"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-07-20 14:29:13.472650", 
+  "name": "Reject", 
+  "workflow_action_name": "Reject"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow Action", 
+  "modified": "2017-07-20 14:29:13.474681", 
+  "name": "Review", 
+  "workflow_action_name": "Review"
  }
 ]
