@@ -68,7 +68,7 @@ def create_default_warehouses():
         abbr=values.abbr
     for wh_detail in [
         {"warehouse_name": _("Micro Finance Installations"), "is_group": 1},
-        {"warehouse_name": _(name + " Installations"), "is_group": 0},
+        {"warehouse_name": _(name + " Installations"), "is_group": 1},
         {"warehouse_name": _(name + " Technicians"), "is_group": 1},
         {"warehouse_name": _(name + " Stores"), "is_group": 0}]:
 
