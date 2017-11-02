@@ -3,6 +3,22 @@
 cur_frm.add_fetch()
 var warehouse;
 
+cur_frm.fields_dict['customer_name'].get_query = function (doc, cdt, cdn) {
+   return {
+        filters: {
+            'customer_type' : "Individual"
+        }
+    }
+}
+
+cur_frm.fields_dict['technician'].get_query = function (doc, cdt, cdn) {
+   return {
+        filters: {
+            'is_technician': true
+        }
+    }
+}
+
 cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
    return {
         filters: {
@@ -11,6 +27,7 @@ cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
         }
     }
 }
+
 cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
    return {
        filters:{
