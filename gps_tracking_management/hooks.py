@@ -11,7 +11,7 @@ app_icon = "icon-book"
 app_color = "#589494"
 app_email = "info@bituls.com"
 app_url = "https://frappe.io/apps/gps_tracking_management"
-app_version = "0.0.1"
+app_version = "0.0.2"
 
 # Includes in <head>
 # ------------------
