@@ -1,12 +1,22 @@
 // Copyright (c) 2017,  Bituls Company Limited and contributors
 // For license information, please see license.txt
 cur_frm.add_fetch()
+
 cur_frm.fields_dict['installation'].get_query = function(doc, cdt, cdn) {
   return {
     filters:{"status": 'Installation Closed'
     }
   }
 }
+
+cur_frm.fields_dict['technician'].get_query = function(doc, cdt, cdn) {
+  return {
+    filters: {
+           "is_technician": true
+    }
+  }
+}
+
 frappe.ui.form.on('Removal', {
 	onload: function(frm) {
 
