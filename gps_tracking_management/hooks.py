@@ -13,7 +13,6 @@ app_email = "info@bituls.com"
 app_url = "https://frappe.io/apps/gps_tracking_management"
 app_version = "0.0.1"
 
-
 # Includes in <head>
 # ------------------
 
@@ -48,7 +47,8 @@ after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks
 # has_permission = {
 # 	"Event": "frappe.core.doctype.event.event.has_permission",
 # }
-fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow"]
+fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow",
+            "Item"]
 # Document Events
 # ---------------
 # Hook on document methods and events
@@ -64,10 +64,10 @@ fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow"]
 doc_events = {
     "Employee": {
         "before_insert": "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
-        #"before_cancel": "property.property_management.hooks.doc_hooks.sales_invoice_cancel"
+        # "before_cancel": "property.property_management.hooks.doc_hooks.sales_invoice_cancel"
     },
     "Customer": {
-        "before_insert": "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse_for_customer"
+        "before_insert": "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
     }
 }
 

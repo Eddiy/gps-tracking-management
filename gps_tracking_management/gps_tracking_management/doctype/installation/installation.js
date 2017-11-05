@@ -2,23 +2,32 @@
 // For license information, please see license.txt
 cur_frm.add_fetch()
 var warehouse;
-// cur_frm.fields_dict['communication'].get_query = function(doc, cdt, cdn) {
-//   return {
-//     filters:{
-//             'communication_medium': "Email"
-//
-//     }
-//   }
-// }
-cur_frm.fields_dict['device_serial'].get_query = function(doc, cdt, cdn) {
+
+cur_frm.fields_dict['customer_name'].get_query = function (doc, cdt, cdn) {
    return {
-    filters:{
-            'warehouse': warehouse,
-            'item_name': "Tracker"
+        filters: {
+            'customer_type' : "Individual"
+        }
     }
-   }
 }
-debugger;
+
+cur_frm.fields_dict['technician'].get_query = function (doc, cdt, cdn) {
+   return {
+        filters: {
+            'is_technician': true
+        }
+    }
+}
+
+cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
+   return {
+        filters: {
+            'warehouse' : warehouse,
+            'item_name': "Tracker"
+        }
+    }
+}
+
 cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
    return {
        filters:{
@@ -182,30 +191,14 @@ frappe.ui.form.on('Installation', {
                },
                callback: function(r) {
                  if (!r.exc) {
-                   msgprint(__("You getting somewhere"));
+
                  }
                }
 
 
              });
            }
-          //  if(frm.doc.status=="Installation Closed"){
-          //    frappe.call({
-          //      method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.close_communication",
-          //      args: {
-          //        'communication':  frm.doc.communication
-           //
-          //      },
-          //      callback: function(r) {
-           //
-          //          msgprint(__(r));
-           //
-          //      }
-           //
-           //
-          //    });
-           //
-          //  }
+
   }
 
 });
