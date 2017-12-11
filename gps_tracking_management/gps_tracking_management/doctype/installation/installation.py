@@ -65,8 +65,9 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
 @frappe.whitelist()
 def get_warehouse(name):
     technician = frappe.db.get_value("Employee", name, "employee_name")
-    warehouse = frappe.db.get_value(
+    warehouse = frappe.db.sql(
         "Warehouse", {"warehouse_name": technician})
+    frappe.msgprint(_(warehouse))
     return warehouse
 
 

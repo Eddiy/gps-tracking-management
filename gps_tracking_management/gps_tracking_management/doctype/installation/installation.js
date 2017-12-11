@@ -22,8 +22,7 @@ cur_frm.fields_dict['technician'].get_query = function (doc, cdt, cdn) {
 cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
    return {
         filters: {
-            'warehouse' : warehouse,
-            'item_name': "Tracker"
+            'warehouse' : warehouse
         }
     }
 }
@@ -31,8 +30,7 @@ cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
 cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
    return {
        filters:{
-               'warehouse': warehouse,
-               'item_name': "GSM"
+               'warehouse': warehouse
        }
       }
 }
@@ -40,23 +38,6 @@ cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
 
 frappe.ui.form.on('Installation', {
   onload: function(frm) {
-
-  },
-  get_warehouse: function(frm){
-     frappe.call({
-                 method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
-                 args: {
-                   'name': doc.client
-                 },
-                 callback: function(r) {
-                     warehouse=r;
-
-                 }
-
-
-               });
-  },
-  refresh: function(frm) {
 
   },
 
@@ -155,24 +136,23 @@ frappe.ui.form.on('Installation', {
 
 
   },
-  refresh: function(frm){
+  technician: function(frm){
+      frappe.call({
+          method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
+          args:{
+              "name": frm.doc.technician
+          },
+          callback: function(r) {
+              if (!r.exc) {
+                  warehouse=r.message;
 
-    if(frm.doc.technician){
-        frappe.call({
-                   method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
-                   args: {
-                     'name': frm.doc.technician
-
-                   },
-                   callback: function(r) {
-                       warehouse=r.message;
-
-
-                   }
+              }
+          }
 
 
-        });
-    }
+      });
+
+
 
 
   },
@@ -202,3 +182,8 @@ frappe.ui.form.on('Installation', {
   }
 
 });
+
+
+
+
+

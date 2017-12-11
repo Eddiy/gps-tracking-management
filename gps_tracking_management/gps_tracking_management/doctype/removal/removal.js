@@ -17,6 +17,14 @@ cur_frm.fields_dict['technician'].get_query = function(doc, cdt, cdn) {
   }
 }
 
+cur_frm.fields_dict['communication'].get_query = function(doc, cdt, cdn) {
+   return {
+       filters:{
+               'request_type': "Removal"
+       }
+      }
+}
+
 frappe.ui.form.on('Removal', {
 	onload: function(frm) {
 
