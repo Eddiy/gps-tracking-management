@@ -22,7 +22,8 @@ cur_frm.fields_dict['technician'].get_query = function (doc, cdt, cdn) {
 cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
    return {
         filters: {
-            'warehouse' : warehouse
+            'warehouse' : warehouse,
+            'item_name' : doc.select_gps_tracker
         }
     }
 }
@@ -30,7 +31,8 @@ cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
 cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
    return {
        filters:{
-               'warehouse': warehouse
+               'warehouse': warehouse,
+               'item_name' : doc.select_sim_card
        }
       }
 }
@@ -157,26 +159,27 @@ frappe.ui.form.on('Installation', {
 
   },
   status: function(frm){
+           if(frm.doc.status=="Installation Complete"){
+               frappe.call({
+                   method: "gps_tracking_management.gps_tracking_management.doctype.installation.installation.transfer_device",
+                   args: {
+                       'parent': 'Stock Entry',
+                       'serial': frm.doc.device_serial,
+                       't_warehouse': frm.doc.client,
+                       's_warehouse': frm.doc.technician_name,
+                       'company': frm.doc.company,
+                       'sim_no': frm.doc.sim_card,
+                       'tracker': frm.doc.select_gps_tracker,
+                       'sim_card':frm.doc.select_sim_card
+                   },
+                   callback: function(r) {
+                       if (!r.exc) {
 
-           if(frm.doc.workflow_state=="Installation Complete"){
-             frappe.call({
-               method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.transfer_device",
-               args: {
-                 'parent': 'Stock Entry',
-                 'serial': frm.doc.device_serial,
-                 't_warehouse': frm.doc.client,
-                 's_warehouse': frm.doc.technician_name,
-                 'company': frm.doc.company,
-                 'sim_no':frm.doc.sim_card
-               },
-               callback: function(r) {
-                 if (!r.exc) {
-
-                 }
-               }
+                       }
+                   }
 
 
-             });
+               });
            }
 
   }

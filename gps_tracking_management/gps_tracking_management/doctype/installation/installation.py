@@ -15,7 +15,8 @@ class Installation(Document):
 
 
 @frappe.whitelist()
-def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
+def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no, tracker, sim_card):
+
     tracker_entry = frappe.get_doc({
         "doctype": parent,
         "posting_date": nowdate(),
@@ -34,7 +35,7 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
     s_warehouse = frappe.db.get_value(
         "Warehouse", {"warehouse_name": s_warehouse})
     tracker_entry.append("items",
-                         {"item_code": "Tracker",
+                         {"item_code": tracker,
                           "t_warehouse": t_warehouse,
                           "s_warehouse": s_warehouse,
                           "serial_no": serial,
@@ -44,7 +45,7 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
                           "stock_uom": "Nos",
                           "transfer_qty": 1})
     sim_entry.append("items",
-                     {"item_code": "GSM",
+                     {"item_code": sim_card,
                       "t_warehouse": t_warehouse,
                       "s_warehouse": s_warehouse,
                       "serial_no": sim_no,
@@ -53,7 +54,6 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
                       "conversion_factor": 1.000000,
                       "stock_uom": "Nos",
                       "transfer_qty": 1})
-
     tracker_entry.insert()
     tracker_entry.submit()
     frappe.msgprint(_("Device transferred"))
@@ -65,9 +65,8 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no):
 @frappe.whitelist()
 def get_warehouse(name):
     technician = frappe.db.get_value("Employee", name, "employee_name")
-    warehouse = frappe.db.sql(
+    warehouse = frappe.db.get_value(
         "Warehouse", {"warehouse_name": technician})
-    frappe.msgprint(_(warehouse))
     return warehouse
 
 
