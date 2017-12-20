@@ -77,6 +77,14 @@ doc_events = {
     "Customer": {
         "before_insert":
             "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
+    },
+    "Installation": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_installation"
+    },
+    "Removal": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_removal"
     }
 }
 

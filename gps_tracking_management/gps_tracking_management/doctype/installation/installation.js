@@ -161,7 +161,7 @@ frappe.ui.form.on('Installation', {
   status: function(frm){
            if(frm.doc.status=="Installation Complete"){
                frappe.call({
-                   method: "gps_tracking_management.gps_tracking_management.doctype.installation.installation.transfer_device",
+                   method: "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.transfer_device",
                    args: {
                        'parent': 'Stock Entry',
                        'serial': frm.doc.device_serial,
@@ -180,6 +180,17 @@ frappe.ui.form.on('Installation', {
 
 
                });
+           }
+           if(frm.doc.status=="Installation Closed"){
+               frappe.call({
+                   method:"gps_tracking_management.gps_tracking_management.hooks.doc_hooks.close_communication",
+                   args: {
+                       "communication":frm.doc.communication
+                   },
+                   callback: function(r){
+                   }
+               });
+
            }
 
   }
