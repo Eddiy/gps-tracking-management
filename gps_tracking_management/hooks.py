@@ -49,7 +49,7 @@ after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks
 # has_permission = {
 # 	"Event": "frappe.core.doctype.event.event.has_permission",
 # }
-fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow"]
+fixtures = ["Custom Field", "Custom Script", "Workflow State", "Workflow Action", "Workflow"]
 # Document Events
 # ---------------
 # Hook on document methods and events
@@ -77,6 +77,14 @@ doc_events = {
     "Customer": {
         "before_insert":
             "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
+    },
+    "Installation": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_installation"
+    },
+    "Removal": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_removal"
     }
 }
 
