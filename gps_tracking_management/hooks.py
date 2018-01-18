@@ -27,14 +27,16 @@ app_version = "0.0.2"
 # Installation
 # ------------
 
-# before_install = "library_management.install.before_install"
-after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_default_warehouses"
+before_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_default_warehouses"
+after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_g"
+
 
 # Desk Notifications
 # ------------------
 # See frappe.core.notifications.get_notification_config
 
-# notification_config = "library_management.notifications.get_notification_config"
+# notification_config =
+# "library_management.notifications.get_notification_config"
 
 # Permissions
 # -----------
@@ -47,8 +49,7 @@ after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks
 # has_permission = {
 # 	"Event": "frappe.core.doctype.event.event.has_permission",
 # }
-fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow",
-            "Item"]
+fixtures = ["Custom Field", "Custom Script", "Workflow State", "Workflow Action", "Workflow"]
 # Document Events
 # ---------------
 # Hook on document methods and events
@@ -62,12 +63,28 @@ fixtures = ["Custom Field", "Workflow State", "Workflow Action", "Workflow",
 # }
 
 doc_events = {
+    "Company": {
+        "on_update":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_defaults",
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_group"
+    },
     "Employee": {
-        "before_insert": "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
+        "before_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
         # "before_cancel": "property.property_management.hooks.doc_hooks.sales_invoice_cancel"
     },
     "Customer": {
-        "before_insert": "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
+        "before_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.make_warehouse"
+    },
+    "Installation": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_installation"
+    },
+    "Removal": {
+        "after_insert":
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_removal"
     }
 }
 

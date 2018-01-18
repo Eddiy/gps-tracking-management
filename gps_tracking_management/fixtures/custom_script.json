@@ -1,0 +1,11 @@
+[
+ {
+  "docstatus": 0, 
+  "doctype": "Custom Script", 
+  "dt": "Communication", 
+  "modified": "2017-12-14 10:56:10.918286", 
+  "name": "Communication-Client", 
+  "script": "cur_frm.add_fetch()\nfrappe.ui.form.on(\"Communication\", {\n    refresh: function(frm) {\n       \n\n      \n     \n       frm.add_custom_button(__('Installation'),\n            function() {\n                   var install = frappe.model.make_new_doc_and_get_name('Installation');\n\t\t       install = locals['Installation'][install];\n                               install.communication=frm.doc.name;\n\t\t\t       frappe.set_route('Form', 'Installation', install.name);\n           frm.reload_doc();\n            }, __(\"Make\"))\n\n      frm.add_custom_button(__('Removal'),\n          function(){\n              var removal=frappe.model.make_new_doc_and_get_name('Removal');\n                  removal=locals['Removal'][removal];\n                  removal.communication=frm.doc.name;\n                  frappe.set_route('Form', 'Removal', removal.name);\n        frm.reload_doc();\n      }, __(\"Make\"))\n       \n       \n       \n       \n   }\n});", 
+  "script_type": "Client"
+ }
+]

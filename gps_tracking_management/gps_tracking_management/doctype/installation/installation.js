@@ -23,7 +23,7 @@ cur_frm.fields_dict['device_serial'].get_query = function (doc, cdt, cdn) {
    return {
         filters: {
             'warehouse' : warehouse,
-            'item_name': "Tracker"
+            'item_name' : doc.select_gps_tracker
         }
     }
 }
@@ -32,7 +32,7 @@ cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
    return {
        filters:{
                'warehouse': warehouse,
-               'item_name': "GSM"
+               'item_name' : doc.select_sim_card
        }
       }
 }
@@ -40,23 +40,6 @@ cur_frm.fields_dict['sim_card'].get_query = function(doc, cdt, cdn) {
 
 frappe.ui.form.on('Installation', {
   onload: function(frm) {
-
-  },
-  get_warehouse: function(frm){
-     frappe.call({
-                 method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
-                 args: {
-                   'name': doc.client
-                 },
-                 callback: function(r) {
-                     warehouse=r;
-
-                 }
-
-
-               });
-  },
-  refresh: function(frm) {
 
   },
 
@@ -155,50 +138,66 @@ frappe.ui.form.on('Installation', {
 
 
   },
-  refresh: function(frm){
+  technician: function(frm){
+      frappe.call({
+          method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
+          args:{
+              "name": frm.doc.technician
+          },
+          callback: function(r) {
+              if (!r.exc) {
+                  warehouse=r.message;
 
-    if(frm.doc.technician){
-        frappe.call({
-                   method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.get_warehouse",
-                   args: {
-                     'name': frm.doc.technician
-
-                   },
-                   callback: function(r) {
-                       warehouse=r.message;
-
-
-                   }
+              }
+          }
 
 
-        });
-    }
+      });
+
+
 
 
   },
   status: function(frm){
+           if(frm.doc.status=="Installation Complete"){
+               frappe.call({
+                   method: "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.transfer_device",
+                   args: {
+                       'parent': 'Stock Entry',
+                       'serial': frm.doc.device_serial,
+                       't_warehouse': frm.doc.client,
+                       's_warehouse': frm.doc.technician_name,
+                       'company': frm.doc.company,
+                       'sim_no': frm.doc.sim_card,
+                       'tracker': frm.doc.select_gps_tracker,
+                       'sim_card':frm.doc.select_sim_card
+                   },
+                   callback: function(r) {
+                       if (!r.exc) {
 
-           if(frm.doc.workflow_state=="Installation Complete"){
-             frappe.call({
-               method:"gps_tracking_management.gps_tracking_management.doctype.installation.installation.transfer_device",
-               args: {
-                 'parent': 'Stock Entry',
-                 'serial': frm.doc.device_serial,
-                 't_warehouse': frm.doc.client,
-                 's_warehouse': frm.doc.technician_name,
-                 'company': frm.doc.company,
-                 'sim_no':frm.doc.sim_card
-               },
-               callback: function(r) {
-                 if (!r.exc) {
-
-                 }
-               }
+                       }
+                   }
 
 
-             });
+               });
+           }
+           if(frm.doc.status=="Installation Closed"){
+               frappe.call({
+                   method:"gps_tracking_management.gps_tracking_management.hooks.doc_hooks.close_communication",
+                   args: {
+                       "communication":frm.doc.communication
+                   },
+                   callback: function(r){
+                   }
+               });
+
            }
 
   }
 
 });
+
+
+
+
+

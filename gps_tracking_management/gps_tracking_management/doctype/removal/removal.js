@@ -17,6 +17,15 @@ cur_frm.fields_dict['technician'].get_query = function(doc, cdt, cdn) {
   }
 }
 
+cur_frm.fields_dict['communication'].get_query = function(doc, cdt, cdn) {
+   return {
+       filters:{
+               'request_type': "Removal"
+       }
+      }
+}
+
+
 frappe.ui.form.on('Removal', {
 	onload: function(frm) {
 
@@ -48,33 +57,44 @@ frappe.ui.form.on('Removal', {
 			return
 		}
 	},
-	on_submit: function(frm) {
-		if(frm.doc.status=="Removal Completed"){
 
+	status: function(frm){
+        if(frm.doc.status=="Removal Completed"){
             frappe.call({
-                method:"gps_tracking_management.gps_tracking_management.doctype.removal.removal.transfer_device",
+                method: "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.transfer_device",
                 args: {
-                  'parent': 'Stock Entry',
-                  'serial': frm.doc.device,
-                  't_warehouse': frm.doc.technician_name,
-                  's_warehouse': frm.doc.client,
-                  'company': frm.doc.company,
-                  'sim_no': frm.doc.sim_card
+                    'parent': 'Stock Entry',
+                    'serial': frm.doc.device,
+                    't_warehouse': frm.doc.technician_name,
+                    's_warehouse': frm.doc.client,
+                    'company': frm.doc.company,
+                    'sim_no': frm.doc.sim_card,
+                    'tracker': frm.doc.gps_tracker,
+                    'sim_card':frm.doc.sim_card_item
                 },
                 callback: function(r) {
-                  if (!r.exc) {
-                    msgprint(__("You getting somewhere"));
-                  }
+                    if (!r.exc) {
+
+                    }
                 }
 
 
+                   });
+        }
+
+        if(frm.doc.status=="Removal Closed"){
+            frappe.call({
+                method:"gps_tracking_management.gps_tracking_management.hooks.doc_hooks.close_communication",
+                args: {
+                    "communication":frm.doc.communication
+                },
+                callback: function(r){
+                }
             });
 
-
-              validated= true;
-              return
         }
-	}
+
+      }
 
 
 });
