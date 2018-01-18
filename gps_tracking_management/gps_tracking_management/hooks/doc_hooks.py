@@ -118,7 +118,7 @@ def get_company(doc):
         return company_details
 
 
-def create_customer_group(doc, method):
+def create_customer_group():
     customer_g = "Bituls Tracking"
 
     if not frappe.db.exists("Customer Group", customer_g):
