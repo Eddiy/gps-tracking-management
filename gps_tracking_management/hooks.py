@@ -29,6 +29,8 @@ app_version = "0.0.2"
 
 before_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_default_warehouses"
 after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_g"
+after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_group"
+
 
 
 # Desk Notifications
@@ -65,9 +67,7 @@ fixtures = ["Custom Field", "Custom Script", "Workflow State", "Workflow Action"
 doc_events = {
     "Company": {
         "on_update":
-            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_defaults",
-        "after_insert":
-            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_group"
+            "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_defaults"        "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_group"
     },
     "Employee": {
         "before_insert":
