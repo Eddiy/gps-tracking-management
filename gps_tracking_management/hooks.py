@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from frappe import _, msgprint, throw
-
 app_name = "gps_tracking_management"
 app_title = "GPS Tracking Management"
 app_publisher = "Bituls Company Limited"
@@ -10,7 +8,7 @@ app_description = "App for Managing GPS Tracking Activities"
 app_icon = "icon-book"
 app_color = "#589494"
 app_email = "info@bituls.com"
-app_url = "https://frappe.io/apps/gps_tracking_management"
+app_url = "http://src.bituls.com/bituls/gps_tracking_management"
 app_version = "0.0.2"
 
 # Includes in <head>
@@ -87,7 +85,6 @@ doc_events = {
             "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.set_removal"
     }
 }
-
 
 # Scheduled Tasks
 # ---------------
