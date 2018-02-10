@@ -25,10 +25,6 @@ app_version = "0.0.2"
 # Installation
 # ------------
 
-before_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_default_warehouses"
-after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_g"
-after_install = "gps_tracking_management.gps_tracking_management.hooks.doc_hooks.create_customer_group"
-
 
 
 # Desk Notifications
