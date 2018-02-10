@@ -1,0 +1,11 @@
+{
+  "name": "gps_tracking_management",
+  "private": true,
+  "devDependencies": {
+    "standard": "^10.0.3",
+    "snazzy": "^7.0.0"
+  },
+  "standard": {
+    "globals": [ "frappe", "cur_frm", "__"]
+  }
+}

@@ -8,7 +8,8 @@ import frappe
 from frappe.model.document import Document
 
 
-class Installation(Document): pass
+class Installation(Document):
+    pass
 
 
 @frappe.whitelist()
