@@ -5,12 +5,12 @@
 from __future__ import unicode_literals
 
 import frappe
-from frappe import _
 from frappe.model.document import Document
 
 
+class Installation(Document):
+    pass
 
-class Installation(Document):pass
 
 @frappe.whitelist()
 def get_warehouse(name):
@@ -18,6 +18,3 @@ def get_warehouse(name):
     warehouse = frappe.db.get_value(
         "Warehouse", {"warehouse_name": technician})
     return warehouse
-
-
-

@@ -2,8 +2,7 @@ from __future__ import unicode_literals
 
 import frappe
 from frappe import _
-from frappe.utils import comma_and
-from frappe.utils import flt, cstr, nowdate, nowtime
+from frappe.utils import nowdate
 
 
 def create_default_warehouses():
@@ -14,14 +13,13 @@ def create_default_warehouses():
         for wh_detail in [
             {"warehouse_name": _("All Warehouses"), "is_group": 1},
             {"warehouse_name": _(
-             "Micro Finance Installations"),
-             "is_group": 1},
+                "Micro Finance Installations"),
+                "is_group": 1},
             {"warehouse_name": _(name + " Installations"), "is_group": 1},
             {"warehouse_name": _(name + " Technicians"), "is_group": 1},
-                {"warehouse_name": _(name + " Stores"), "is_group": 0}]:
+            {"warehouse_name": _(name + " Stores"), "is_group": 0}]:
 
             if not frappe.db.exists("Warehouse", "{0} - {1}".format(wh_detail["warehouse_name"], abbr)):
-
                 warehouse = frappe.get_doc({
                     "doctype": "Warehouse",
                     "warehouse_name": wh_detail["warehouse_name"],
@@ -40,30 +38,29 @@ def create_defaults(doc, method):
     abbr = doc.abbr
 
     for wh_detail in [
-            {"warehouse_name": _("All Warehouses"), "is_group": 1},
-            {"warehouse_name": _(
-             "Micro Finance Installations"),
-             "is_group": 1},
-            {"warehouse_name": _(name + " Installations"), "is_group": 1},
-            {"warehouse_name": _(name + " Technicians"), "is_group": 1},
-            {"warehouse_name": _(name + " Stores"), "is_group": 0}]:
+        {"warehouse_name": _("All Warehouses"), "is_group": 1},
+        {"warehouse_name": _(
+            "Micro Finance Installations"),
+            "is_group": 1},
+        {"warehouse_name": _(name + " Installations"), "is_group": 1},
+        {"warehouse_name": _(name + " Technicians"), "is_group": 1},
+        {"warehouse_name": _(name + " Stores"), "is_group": 0}]:
 
-            if not frappe.db.exists("Warehouse", "{0} - {1}".format(wh_detail["warehouse_name"], abbr)):
+        if not frappe.db.exists("Warehouse", "{0} - {1}".format(wh_detail["warehouse_name"], abbr)):
+            warehouse = frappe.get_doc({
+                "doctype": "Warehouse",
+                "warehouse_name": wh_detail["warehouse_name"],
+                "is_group": wh_detail["is_group"],
+                "company": name,
+                "parent_warehouse":
+                    "{0} - {1}".format(_("All Warehouses"), abbr)
+                    if not wh_detail["warehouse_name"] == "All Warehouses" else ""
+            })
+            warehouse.flags.ignore_permissions = True
+            warehouse.insert()
 
-                    warehouse = frappe.get_doc({
-                        "doctype": "Warehouse",
-                        "warehouse_name": wh_detail["warehouse_name"],
-                        "is_group": wh_detail["is_group"],
-                        "company": name,
-                        "parent_warehouse":
-                            "{0} - {1}".format(_("All Warehouses"), abbr)
-                            if not wh_detail["warehouse_name"] == "All Warehouses" else ""
-                    })
-                    warehouse.flags.ignore_permissions = True
-                    warehouse.insert()
-
-                # else:
-                #     frappe.throw(_("Cannot continue"))
+        # else:
+        #     frappe.throw(_("Cannot continue"))
 
 
 def make_warehouse(doc, method):
@@ -118,7 +115,7 @@ def get_company(doc):
         return company_details
 
 
-def create_customer_group(doc, method):
+def create_customer_group():
     customer_g = "Bituls Tracking"
 
     if not frappe.db.exists("Customer Group", customer_g):
@@ -143,21 +140,23 @@ def create_customer_g():
                 "customer_group_name": c_detail["customer_group_name"],
                 "is_group": c_detail["is_group"],
                 "parent_customer_group": "All Customer Groups"
-                    if not c_detail["customer_group_name"] == "All Customer Groups" else ""
+                if not c_detail["customer_group_name"] == "All Customer Groups" else ""
 
             })
             customer_group.flags.ignore_permissions = True
             customer_group.insert()
 
+
 def set_installation(doc, method):
     frappe.db.set_value("Communication", doc.communication, "installation", doc.name)
+
 
 def set_removal(doc, method):
     frappe.db.set_value("Communication", doc.communication, "removal", doc.name)
 
+
 @frappe.whitelist()
 def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no, tracker, sim_card):
-
     tracker_entry = frappe.get_doc({
         "doctype": parent,
         "posting_date": nowdate(),
@@ -201,6 +200,7 @@ def transfer_device(parent, serial, t_warehouse, s_warehouse, company, sim_no, t
     sim_entry.insert()
     sim_entry.submit()
     frappe.msgprint(_("Sim card transferred"))
+
 
 @frappe.whitelist()
 def close_communication(communication):
