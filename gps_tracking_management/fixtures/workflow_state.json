@@ -106,5 +106,32 @@
   "name": "Rejected", 
   "style": "Danger", 
   "workflow_state_name": "Rejected"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow State", 
+  "icon": "", 
+  "modified": "2018-06-11 11:43:32.898472", 
+  "name": "Request Confirmed", 
+  "style": "", 
+  "workflow_state_name": "Request Confirmed"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow State", 
+  "icon": "", 
+  "modified": "2018-06-11 11:44:04.181904", 
+  "name": "Recovery Confirmed", 
+  "style": "", 
+  "workflow_state_name": "Recovery Confirmed"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow State", 
+  "icon": "", 
+  "modified": "2018-06-11 11:44:15.414622", 
+  "name": "Recovery Closed", 
+  "style": "", 
+  "workflow_state_name": "Recovery Closed"
  }
 ]

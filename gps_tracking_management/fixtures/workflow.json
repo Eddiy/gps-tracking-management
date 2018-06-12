@@ -77,36 +77,42 @@
    {
     "action": "Contact Customer", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Customer Contacted", 
     "state": "New"
    }, 
    {
     "action": "Assign Technician", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Technician Assigned", 
     "state": "Customer Contacted"
    }, 
    {
     "action": "Complete Installation", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Installation Complete", 
     "state": "Technician Assigned"
    }, 
    {
     "action": "Verify Installation", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Installation Verified", 
     "state": "Installation Complete"
    }, 
    {
     "action": "Issue Certificate", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Certificate Issued", 
     "state": "Installation Verified"
    }, 
    {
     "action": "Close Installation", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Installation Closed", 
     "state": "Certificate Issued"
    }
@@ -160,23 +166,79 @@
    {
     "action": "Assign Technician", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Technician Assigned", 
     "state": "New"
    }, 
    {
     "action": "Complete Removal", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Removal Complete", 
     "state": "Technician Assigned"
    }, 
    {
     "action": "Close Removal", 
     "allowed": "Support Team", 
+    "condition": null, 
     "next_state": "Removal Closed", 
     "state": "Removal Complete"
    }
   ], 
   "workflow_name": "Removal", 
+  "workflow_state_field": "workflow_state"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Workflow", 
+  "document_type": "Recovery", 
+  "is_active": 1, 
+  "modified": "2018-06-11 13:15:01.594558", 
+  "name": "Recovery", 
+  "override_status": 0, 
+  "states": [
+   {
+    "allow_edit": "Support Team", 
+    "doc_status": "0", 
+    "message": null, 
+    "state": "New", 
+    "update_field": "status", 
+    "update_value": "New"
+   }, 
+   {
+    "allow_edit": "Support Team", 
+    "doc_status": "0", 
+    "message": null, 
+    "state": "Request Confirmed", 
+    "update_field": "status", 
+    "update_value": "Request Confirmed"
+   }, 
+   {
+    "allow_edit": "Support Team", 
+    "doc_status": "0", 
+    "message": null, 
+    "state": "Recovery Closed", 
+    "update_field": "status", 
+    "update_value": "Recovery Closed"
+   }
+  ], 
+  "transitions": [
+   {
+    "action": "Confirm Request", 
+    "allowed": "Support Team", 
+    "condition": null, 
+    "next_state": "Request Confirmed", 
+    "state": "New"
+   }, 
+   {
+    "action": "Close Recovey", 
+    "allowed": "Support Team", 
+    "condition": null, 
+    "next_state": "Recovery Closed", 
+    "state": "Request Confirmed"
+   }
+  ], 
+  "workflow_name": "Recovery", 
   "workflow_state_field": "workflow_state"
  }
 ]
